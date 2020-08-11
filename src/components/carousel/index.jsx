@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Slide from './slide';
 import CarouselButton from './carousel-button';
+import styles from './carousel.module.scss';
+import classNames from 'classnames';
 
 class Carousel extends Component {
   constructor(props) {
@@ -49,10 +51,10 @@ class Carousel extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { isPlaying, delay } = this.state;
 
+    this.stopPlay();
+
     if (isPlaying) {
       this.timeoutId = setTimeout(this.setNextSlide, delay);
-    } else {
-      this.stopPlay();
     }
   }
 
@@ -60,19 +62,43 @@ class Carousel extends Component {
     this.stopPlay();
   }
 
+  fullScreenMode = () => {
+    const { isFullScreen } = this.state;
+    const slider = document.getElementById('carousel');
+    if (!isFullScreen) {
+      slider.requestFullscreen();
+    }
+    this.setState({ isFullScreen: !isFullScreen });
+  };
+
   render() {
     const { slides } = this.props;
-    const { currentIndex } = this.state;
+    const { currentIndex, isFullScreen } = this.state;
+    const className = classNames(styles.container, {
+      [styles.fullScreenCarousel]: isFullScreen,
+    });
 
     return (
-      <article>
+      <article className={className} id="carousel">
         <Slide {...slides[this.getPrevIndex]} />
-        <Slide isCurrentSlide={true} {...slides[currentIndex]} />
+        <Slide
+          isFullScreen={isFullScreen}
+          isCurrentSlide={true}
+          {...slides[currentIndex]}
+        />
         <Slide {...slides[this.getNextIndex]} />
+        <div className={styles.buttonsWrapper}>
+          <CarouselButton onClick={this.setPrevSlide}>{'<<'}</CarouselButton>
+          <CarouselButton onClick={this.setPlay}>{'X'}</CarouselButton>
+          <CarouselButton onClick={this.setNextSlide}>{'>>'}</CarouselButton>
+        </div>
 
-        <CarouselButton onClick={this.setPrevSlide}>{'<<'}</CarouselButton>
-        <CarouselButton onClick={this.setPlay}>{'X'}</CarouselButton>
-        <CarouselButton onClick={this.setNextSlide}>{'>>'}</CarouselButton>
+        <button
+          className={styles.fullScreenButton}
+          onClick={this.fullScreenMode}
+        >
+          {'#'}
+        </button>
       </article>
     );
   }

@@ -51,10 +51,18 @@ class Slide extends Component {
   }
 
   render() {
-    const { title, description, src, isCurrentSlide } = this.props;
+    const {
+      title,
+      description,
+      src,
+      isCurrentSlide,
+      isFullScreen,
+    } = this.props;
+
     const { isLoaded } = this.state;
     const className = classNames(styles.slide, {
       [styles.currentSlide]: isCurrentSlide,
+      [styles.fullScreenSlide]: isFullScreen,
     });
 
     return (

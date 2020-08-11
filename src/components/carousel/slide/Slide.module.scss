@@ -1,7 +1,27 @@
+$image-size: 500px;
+
 .slide {
   display: none;
+
+  img {
+    width: $image-size;
+    height: $image-size;
+  }
 }
 
 .currentSlide {
   display: block;
+}
+
+.fullScreenSlide {
+  img {
+    width: 100vw;
+    height: 100vh;
+    object-position: center;
+    object-fit: cover;
+  }
+
+  figcaption {
+    display: none;
+  }
 }

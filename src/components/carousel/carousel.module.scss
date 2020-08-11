@@ -1,0 +1,33 @@
+@import '../common/reset.module.css';
+
+body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.container {
+  display: inline-flex;
+  justify-content: center;
+  width: 500px;
+  margin-top: 3rem;
+
+  position: relative;
+}
+
+.buttonsWrapper {
+  position: absolute;
+  bottom: 7.5rem;
+}
+
+.fullScreenButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fullScreenCarousel {
+  margin: 0;
+  // width: 100vw;
+  // height: 100vh;
+}
