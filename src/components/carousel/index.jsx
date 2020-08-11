@@ -65,9 +65,13 @@ class Carousel extends Component {
   fullScreenMode = () => {
     const { isFullScreen } = this.state;
     const slider = document.getElementById('carousel');
+
     if (!isFullScreen) {
       slider.requestFullscreen();
+    } else {
+      document.webkitExitFullscreen();
     }
+
     this.setState({ isFullScreen: !isFullScreen });
   };
 
@@ -82,6 +86,7 @@ class Carousel extends Component {
       <article className={className} id="carousel">
         <Slide {...slides[this.getPrevIndex]} />
         <Slide
+          id="asd"
           isFullScreen={isFullScreen}
           isCurrentSlide={true}
           {...slides[currentIndex]}
