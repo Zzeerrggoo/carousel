@@ -75,6 +75,11 @@ class Carousel extends Component {
     this.setState({ isFullScreen: !isFullScreen });
   };
 
+  setDelay = () => {
+    const input = document.getElementById('delayRange');
+    this.setState({ delay: input.value });
+  };
+
   render() {
     const { slides } = this.props;
     const { currentIndex, isFullScreen } = this.state;
@@ -86,16 +91,26 @@ class Carousel extends Component {
       <article className={className} id="carousel">
         <Slide {...slides[this.getPrevIndex]} />
         <Slide
-          id="asd"
           isFullScreen={isFullScreen}
           isCurrentSlide={true}
           {...slides[currentIndex]}
         />
         <Slide {...slides[this.getNextIndex]} />
+
         <div className={styles.buttonsWrapper}>
           <CarouselButton onClick={this.setPrevSlide}>{'<<'}</CarouselButton>
-          <CarouselButton onClick={this.setPlay}>{'X'}</CarouselButton>
+          <CarouselButton onClick={this.setPlay}>{'Play'}</CarouselButton>
           <CarouselButton onClick={this.setNextSlide}>{'>>'}</CarouselButton>
+
+          <input
+            id="delayRange"
+            className={styles.rangeInput}
+            type="range"
+            min="1000"
+            max="5000"
+            step="1000"
+            onChange={this.setDelay}
+          />
         </div>
 
         <button
