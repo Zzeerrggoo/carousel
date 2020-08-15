@@ -29,6 +29,19 @@ class Carousel extends Component {
       });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isPlaying, delay } = this.state;
+
+    this.stopPlay();
+    if (isPlaying) {
+      this.timeoutId = setTimeout(this.setNextSlide, delay);
+    }
+  }
+
+  componentWillUnmount() {
+    this.stopPlay();
+  }
+
   get getNextIndex() {
     const { currentIndex } = this.state;
     const { slides } = this.props;
@@ -60,19 +73,6 @@ class Carousel extends Component {
     clearTimeout(this.timeoutId);
     this.timeoutId = null;
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    const { isPlaying, delay } = this.state;
-
-    this.stopPlay();
-    if (isPlaying) {
-      this.timeoutId = setTimeout(this.setNextSlide, delay);
-    }
-  }
-
-  componentWillUnmount() {
-    this.stopPlay();
-  }
 
   fullScreenMode = () => {
     const { isFullScreen } = this.state;
