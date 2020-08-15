@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Slide from './slide';
-import CarouselButton from './carousel-button';
 import styles from './carousel.module.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -119,9 +118,9 @@ class Carousel extends Component {
           />
 
           <div className={classNames({ [styles.isPlaying]: isPlaying })}>
-            <CarouselButton onClick={this.setPrevSlide}>{'<<'}</CarouselButton>
-            <CarouselButton onClick={this.setPlay}>{'Play'}</CarouselButton>
-            <CarouselButton onClick={this.setNextSlide}>{'>>'}</CarouselButton>
+            <button onClick={this.setPrevSlide}>{'<<'}</button>
+            <button onClick={this.setPlay}>{'Play'}</button>
+            <button onClick={this.setNextSlide}>{'>>'}</button>
           </div>
 
           <button
