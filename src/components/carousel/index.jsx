@@ -3,6 +3,7 @@ import Slide from './slide';
 import CarouselButton from './carousel-button';
 import styles from './carousel.module.scss';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 class Carousel extends Component {
   constructor(props) {
@@ -14,6 +15,18 @@ class Carousel extends Component {
       isFullScreen: false,
       currentIndex: 0,
     };
+  }
+
+  componentDidMount() {
+    document
+      .getElementById('carousel')
+      .addEventListener('fullscreenchange', (event) => {
+        if (document.fullscreenElement) {
+          this.setState({ isFullScreen: true });
+        } else {
+          this.setState({ isFullScreen: false });
+        }
+      });
   }
 
   get getNextIndex() {
@@ -52,7 +65,6 @@ class Carousel extends Component {
     const { isPlaying, delay } = this.state;
 
     this.stopPlay();
-
     if (isPlaying) {
       this.timeoutId = setTimeout(this.setNextSlide, delay);
     }
@@ -71,8 +83,6 @@ class Carousel extends Component {
     } else {
       document.webkitExitFullscreen();
     }
-
-    this.setState({ isFullScreen: !isFullScreen });
   };
 
   setDelay = () => {
@@ -123,5 +133,15 @@ class Carousel extends Component {
     );
   }
 }
+
+Carousel.propTypes = {
+  slides: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+      src: PropTypes.string,
+    })
+  ).isRequired,
+};
 
 export default Carousel;

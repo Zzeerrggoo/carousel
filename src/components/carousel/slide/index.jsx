@@ -78,6 +78,7 @@ class Slide extends Component {
 }
 
 Slide.propTypes = {
+  isFullScreen: PropTypes.bool.isRequired,
   isCurrentSlide: PropTypes.bool,
 };
 
