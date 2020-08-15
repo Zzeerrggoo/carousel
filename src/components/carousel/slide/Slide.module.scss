@@ -1,11 +1,36 @@
-$image-size: 500px;
+$image-size: 700px;
+$line-height: 1.35;
+$lines-to-show: 6;
+$font-size: 1rem;
 
 .slide {
   display: none;
+  font-family: sans-serif;
 
   img {
     width: $image-size;
     height: $image-size;
+  }
+
+  figcaption {
+    display: block;
+    position: absolute;
+    top: 0;
+    padding: 2rem;
+
+    line-height: 1.35;
+    opacity: 0;
+    color: white;
+    background-color: dodgerblue;
+    max-height: $font-size * $line-height * $lines-to-show;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  figcaption:hover {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
   }
 }
 
@@ -19,9 +44,5 @@ $image-size: 500px;
     height: 100vh;
     object-position: center;
     object-fit: cover;
-  }
-
-  figcaption {
-    display: none;
   }
 }

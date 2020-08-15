@@ -8,29 +8,22 @@ body {
 
 .container {
   position: relative;
+
   display: inline-flex;
   justify-content: center;
-  width: 500px;
+  width: 700px;
   margin-top: 3rem;
 }
 
 .buttonsWrapper {
+  width: 100%;
   position: absolute;
-  bottom: 7.5rem;
+  bottom: 5rem;
+
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.fullScreenButton {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.fullScreenCarousel {
-  margin: 0;
-}
-
-.rangeInput {
-  position: absolute;
-  left: 8rem;
-  top: 0.2rem;
+.isPlaying button {
+  background-color: #4caf50;
 }

@@ -92,7 +92,7 @@ class Carousel extends Component {
 
   render() {
     const { slides } = this.props;
-    const { currentIndex, isFullScreen } = this.state;
+    const { currentIndex, isFullScreen, isPlaying } = this.state;
     const className = classNames(styles.container, {
       [styles.fullScreenCarousel]: isFullScreen,
     });
@@ -108,10 +108,6 @@ class Carousel extends Component {
         <Slide {...slides[this.getNextIndex]} />
 
         <div className={styles.buttonsWrapper}>
-          <CarouselButton onClick={this.setPrevSlide}>{'<<'}</CarouselButton>
-          <CarouselButton onClick={this.setPlay}>{'Play'}</CarouselButton>
-          <CarouselButton onClick={this.setNextSlide}>{'>>'}</CarouselButton>
-
           <input
             id="delayRange"
             className={styles.rangeInput}
@@ -121,14 +117,20 @@ class Carousel extends Component {
             step="1000"
             onChange={this.setDelay}
           />
-        </div>
 
-        <button
-          className={styles.fullScreenButton}
-          onClick={this.fullScreenMode}
-        >
-          {'#'}
-        </button>
+          <div className={classNames({ [styles.isPlaying]: isPlaying })}>
+            <CarouselButton onClick={this.setPrevSlide}>{'<<'}</CarouselButton>
+            <CarouselButton onClick={this.setPlay}>{'Play'}</CarouselButton>
+            <CarouselButton onClick={this.setNextSlide}>{'>>'}</CarouselButton>
+          </div>
+
+          <button
+            className={styles.fullScreenButton}
+            onClick={this.fullScreenMode}
+          >
+            {'Full screen'}
+          </button>
+        </div>
       </article>
     );
   }
