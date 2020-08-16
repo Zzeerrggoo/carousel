@@ -3,6 +3,7 @@ import Slide from './slide';
 import styles from './carousel.module.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import RangeInput from './RangeInput';
 
 class Carousel extends Component {
   constructor(props) {
@@ -107,15 +108,9 @@ class Carousel extends Component {
         <Slide {...slides[this.getNextIndex]} />
 
         <div className={styles.buttonsWrapper}>
-          <input
-            id="delayRange"
-            className={styles.rangeInput}
-            type="range"
-            min="1000"
-            max="5000"
-            step="1000"
-            onChange={this.setDelay}
-          />
+          <RangeInput onChange={this.setDelay}>
+            {this.state.delay} ms
+          </RangeInput>
 
           <div className={classNames({ [styles.isPlaying]: isPlaying })}>
             <button onClick={this.setPrevSlide}>{'<<'}</button>
