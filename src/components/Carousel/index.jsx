@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Slide from './slide';
+import Slide from './Slide';
 import styles from './carousel.module.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';

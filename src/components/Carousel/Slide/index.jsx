@@ -64,11 +64,19 @@ class Slide extends Component {
       [styles.currentSlide]: isCurrentSlide,
       [styles.fullScreenSlide]: isFullScreen,
     });
+    const imgClassNames = classNames(styles.slideImg, {
+      [styles.fullScreenSlideImg]: isFullScreen,
+    });
 
     return (
       <figure className={className}>
-        <img src={isLoaded ? src : undefined} alt={title} title={title} />
-        <figcaption>
+        <img
+          className={imgClassNames}
+          src={isLoaded ? src : undefined}
+          alt={title}
+          title={title}
+        />
+        <figcaption className={styles.slideFigcaption}>
           <h3>{title}</h3>
           <p>{description}</p>
         </figcaption>
