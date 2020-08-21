@@ -122,11 +122,7 @@ class Carousel extends Component {
         <Slide {...slides[this.getNextIndex]} />
 
         <CarouselContext.Provider value={delay}>
-          <Controls
-            handleEvents={this.handleEvents}
-            isPlaying={isPlaying}
-            delay={delay}
-          />
+          <Controls handleEvents={this.handleEvents} isPlaying={isPlaying} />
         </CarouselContext.Provider>
       </article>
     );
