@@ -1,0 +1,12 @@
+.buttonsWrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 5rem;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.isPlaying button {
+  background-color: #4caf50;
+}

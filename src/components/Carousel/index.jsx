@@ -3,7 +3,15 @@ import Slide from './Slide';
 import styles from './carousel.module.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import RangeInput from './RangeInput';
+import Controls from './Controls';
+
+export const ACTIONS = {
+  setPrevSlide: 'setPrevSlide',
+  setPlay: 'setPlay',
+  setNextSlide: 'setNextSlide',
+  fullScreenMode: 'fullScreenMode',
+  setDelay: 'setDelay',
+};
 
 class Carousel extends Component {
   constructor(props) {
@@ -34,7 +42,10 @@ class Carousel extends Component {
 
     this.stopPlay();
     if (isPlaying) {
-      this.timeoutId = setTimeout(this.setNextSlide, delay);
+      this.timeoutId = setTimeout(
+        this.handleEvents[ACTIONS.setNextSlide],
+        delay
+      );
     }
   }
 
@@ -56,43 +67,45 @@ class Carousel extends Component {
     return (currentIndex - 1 + slides.length) % slides.length;
   }
 
-  setNextSlide = () => {
-    this.setState({ currentIndex: this.getNextIndex });
-  };
-
-  setPrevSlide = () => {
-    this.setState({ currentIndex: this.getPrevIndex });
-  };
-
-  setPlay = () => {
-    const { isPlaying } = this.state;
-    this.setState({ isPlaying: !isPlaying });
-  };
-
   stopPlay = () => {
     clearTimeout(this.timeoutId);
     this.timeoutId = null;
   };
 
-  fullScreenMode = () => {
-    const { isFullScreen } = this.state;
-    const slider = document.getElementById('carousel');
+  handleEvents = {
+    [ACTIONS.setPrevSlide]: () => {
+      this.setState({ currentIndex: this.getPrevIndex });
+    },
 
-    if (!isFullScreen) {
-      slider.requestFullscreen();
-    } else {
-      document.webkitExitFullscreen();
-    }
-  };
+    [ACTIONS.setPlay]: () => {
+      const { isPlaying } = this.state;
+      this.setState({ isPlaying: !isPlaying });
+    },
 
-  setDelay = () => {
-    const input = document.getElementById('delayRange');
-    this.setState({ delay: input.value });
+    [ACTIONS.setNextSlide]: () => {
+      this.setState({ currentIndex: this.getNextIndex });
+    },
+
+    [ACTIONS.fullScreenMode]: () => {
+      const { isFullScreen } = this.state;
+      const slider = document.getElementById('carousel');
+
+      if (!isFullScreen) {
+        slider.requestFullscreen();
+      } else {
+        document.webkitExitFullscreen();
+      }
+    },
+
+    [ACTIONS.setDelay]: () => {
+      const input = document.getElementById('delayRange');
+      this.setState({ delay: input.value });
+    },
   };
 
   render() {
     const { slides } = this.props;
-    const { currentIndex, isFullScreen, isPlaying } = this.state;
+    const { currentIndex, isFullScreen, isPlaying, delay } = this.state;
     const className = classNames(styles.container, {
       [styles.fullScreenCarousel]: isFullScreen,
     });
@@ -107,24 +120,11 @@ class Carousel extends Component {
         />
         <Slide {...slides[this.getNextIndex]} />
 
-        <div className={styles.buttonsWrapper}>
-          <RangeInput onChange={this.setDelay}>
-            {this.state.delay} ms
-          </RangeInput>
-
-          <div className={classNames({ [styles.isPlaying]: isPlaying })}>
-            <button onClick={this.setPrevSlide}>{'<<'}</button>
-            <button onClick={this.setPlay}>{'Play'}</button>
-            <button onClick={this.setNextSlide}>{'>>'}</button>
-          </div>
-
-          <button
-            className={styles.fullScreenButton}
-            onClick={this.fullScreenMode}
-          >
-            {'Full screen'}
-          </button>
-        </div>
+        <Controls
+          handleEvents={this.handleEvents}
+          isPlaying={isPlaying}
+          delay={delay}
+        />
       </article>
     );
   }
