@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './RangeInput.module.scss';
+import { CarouselContext } from '../contexts';
 
 function RangeInput(props) {
-  const { min, max, step, onChange, children } = props;
   return (
     <label className={styles.rangeInputLabel}>
       <input
         id="delayRange"
         type="range"
         className={styles.rangeInput}
-        min={min}
-        max={max}
-        step={step}
-        onChange={onChange}
+        {...props}
       />
-      {children}
+      <CarouselContext.Consumer children={(delay) => `${delay} ms`} />
     </label>
   );
 }

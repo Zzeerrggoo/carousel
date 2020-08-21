@@ -4,6 +4,7 @@ import styles from './carousel.module.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Controls from './Controls';
+import { CarouselContext } from './contexts';
 
 export const ACTIONS = {
   setPrevSlide: 'setPrevSlide',
@@ -120,11 +121,13 @@ class Carousel extends Component {
         />
         <Slide {...slides[this.getNextIndex]} />
 
-        <Controls
-          handleEvents={this.handleEvents}
-          isPlaying={isPlaying}
-          delay={delay}
-        />
+        <CarouselContext.Provider value={delay}>
+          <Controls
+            handleEvents={this.handleEvents}
+            isPlaying={isPlaying}
+            delay={delay}
+          />
+        </CarouselContext.Provider>
       </article>
     );
   }

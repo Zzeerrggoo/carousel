@@ -7,13 +7,11 @@ import { ACTIONS } from '../index';
 
 class Controls extends Component {
   render() {
-    const { handleEvents, isPlaying, delay } = this.props;
+    const { handleEvents, isPlaying } = this.props;
 
     return (
       <div className={styles.buttonsWrapper}>
-        <RangeInput onChange={handleEvents[ACTIONS.setDelay]}>
-          {delay} ms
-        </RangeInput>
+        <RangeInput onChange={handleEvents[ACTIONS.setDelay]} />
 
         <div className={classNames({ [styles.isPlaying]: isPlaying })}>
           <button onClick={handleEvents[ACTIONS.setPrevSlide]}>{'<<'}</button>
