@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import styles from './Slide.module.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import SlideImage from './SlideImage';
 
 class Slide extends Component {
   constructor(props) {
     super(props);
 
+    const img = new Image();
     this.state = {
+      img,
       isLoaded: false,
     };
   }
@@ -21,10 +24,10 @@ class Slide extends Component {
   };
 
   loadImage(src) {
+    const { img } = this.state;
     return new Promise((resolve, reject) => {
-      const img = new Image();
       img.addEventListener('load', () => resolve(img));
-      img.addEventListener('error', (error) => reject(error));
+      img.addEventListener('error', error => reject(error));
       img.src = src;
     });
   }
@@ -51,31 +54,16 @@ class Slide extends Component {
   }
 
   render() {
-    const {
-      title,
-      description,
-      src,
-      isCurrentSlide,
-      isFullScreen,
-    } = this.props;
+    const { title, description, isCurrentSlide, isFullScreen } = this.props;
 
-    const { isLoaded } = this.state;
     const className = classNames(styles.slide, {
       [styles.currentSlide]: isCurrentSlide,
       [styles.fullScreenSlide]: isFullScreen,
     });
-    const imgClassNames = classNames(styles.slideImg, {
-      [styles.fullScreenSlideImg]: isFullScreen,
-    });
 
     return (
       <figure className={className}>
-        <img
-          className={imgClassNames}
-          src={isLoaded ? src : undefined}
-          alt={title}
-          title={title}
-        />
+        <SlideImage {...this.props} {...this.state} />
         <figcaption className={styles.slideFigcaption}>
           <h3>{title}</h3>
           <p>{description}</p>
@@ -92,6 +80,7 @@ Slide.propTypes = {
 
 Slide.defaultProps = {
   isCurrentSlide: false,
+  isFullScreen: false,
 };
 
 export default Slide;

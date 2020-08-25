@@ -6,9 +6,17 @@ body {
 
 .container {
   position: relative;
-
+  background-color: black;
   display: inline-flex;
+  align-items: center;
   justify-content: center;
-  width: 700px;
-  margin-top: 3rem;
+  width: 1200px;
+  height: 800px;
+  margin: 3rem 0;
+}
+
+.fullScreenContainer {
+  margin: initial;
+  width: 100vw;
+  height: 100vh;
 }

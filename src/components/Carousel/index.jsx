@@ -5,14 +5,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Controls from './Controls';
 import { CarouselContext } from './contexts';
-
-export const ACTIONS = {
-  setPrevSlide: 'setPrevSlide',
-  setPlay: 'setPlay',
-  setNextSlide: 'setNextSlide',
-  fullScreenMode: 'fullScreenMode',
-  setDelay: 'setDelay',
-};
+import ACTIONS from './actions';
 
 class Carousel extends Component {
   constructor(props) {
@@ -29,7 +22,7 @@ class Carousel extends Component {
   componentDidMount() {
     document
       .getElementById('carousel')
-      .addEventListener('fullscreenchange', (event) => {
+      .addEventListener('fullscreenchange', event => {
         if (document.fullscreenElement) {
           this.setState({ isFullScreen: true });
         } else {
@@ -108,7 +101,7 @@ class Carousel extends Component {
     const { slides } = this.props;
     const { currentIndex, isFullScreen, isPlaying, delay } = this.state;
     const className = classNames(styles.container, {
-      [styles.fullScreenCarousel]: isFullScreen,
+      [styles.fullScreenContainer]: isFullScreen,
     });
 
     return (
@@ -118,6 +111,8 @@ class Carousel extends Component {
           isFullScreen={isFullScreen}
           isCurrentSlide={true}
           {...slides[currentIndex]}
+          width={1200}
+          height={800}
         />
         <Slide {...slides[this.getNextIndex]} />
 
